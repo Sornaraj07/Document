@@ -19,7 +19,7 @@
 ----------------------
 AWX installation:
 ----------------------
-Run to sudo user:
+Run to  superuser privileges (sudo) user:
 
 Step 1./ Install required packages
 -------
