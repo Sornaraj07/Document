@@ -1,0 +1,8 @@
+Install Ansible 
+---------------
+
+sudo yum update -y
+sudo yum -y install python3.12
+sudo yum -y install python3.12-pip
+python3.12 -m pip install --user ansible
+python3.12 -m pip install --user pywinrm
