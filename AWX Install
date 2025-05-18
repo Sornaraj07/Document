@@ -16,26 +16,31 @@
   sudo systemctl enable sshd
   sudo systemctl start sshd
   sudo systemctl status sshd
-
+----------------------
 AWX installation:
+----------------------
 
 Step 1./ Install required packages
+-------
   dnf install epel-release -y
   dnf install git gcc gcc-c++ nodejs gettext device-mapper-persistent-data lvm2 bzip2 python3-pip ansible
 
 Step 2./ Install Docker
+-------
   dnf config-manager --add-repo=https://download.docker.com/linux/centos/docker-ce.repo
   dnf install docker-ce --nobest -y
   systemctl enable --now docker.service
 
 Step 3./ Install Docker-compose tool
+-------
   alternatives --set python /usr/bin/python3
   pip3 install docker-compose
 
 Step 4./ Install Ansible AWX
+-------
   git clone -b "17.1.0" https://github.com/ansible/awx.git
-  openssl rand -base64 30                 -----> generate a secret encryption key like, PblrUyeSvBMVWqHaaDMFcABcjzgG5dAhfeOgge4S
-  cd awx/installer/
+  openssl rand -base64 30                 ------> generate a secret encryption key like, PblrUyeSvBMVWqHaaDMFcABcjzgG5dAhfeOgge4S
+  cd awx/installer/                       ------> Go to path
   vi inventory                            ------> Add below details in inventory file, secret_key=PblrUyeSvBMVWqHaaDMFcABcjzgG5dAhfeOgge4S  use above generated
 ---------------------------------------------------
 [all:vars]
@@ -57,8 +62,9 @@ secret_key=PblrUyeSvBMVWqHaaDMFcABcjzgG5dAhfeOgge4S
 awx_official=true
 project_data_dir=/myawx/projects
 ---------------------------------------------------------
-  ansible-playbook -i inventory install.yml
-  docker ps     -----> verify status
+  
+ansible-playbook -i inventory install.yml
+docker ps     -----> verify status
 
 sudo firewall-cmd --zone=public --add-masquerade --permanent
 sudo firewall-cmd --permanent --add-service=http
