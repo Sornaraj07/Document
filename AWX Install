@@ -1,5 +1,7 @@
 1. Install CentOS8
 
+activate web console --now cockpit.socket  -    Enable web console --> https://localhost:9090
+
 2. yum update -y   ---> Not updated , Run Below command
   cd /etc/yum.repos.d/
   sudo sed -i 's/mirrorlist/#mirrorlist/g' /etc/yum.repos.d/CentOS-*
