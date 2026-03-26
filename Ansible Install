@@ -1,4 +1,7 @@
 sudo subscription-manager register --username=sornaraj07@gmail.com --password=Sorna@07
+sudo subscription-manager register --username sornaraj07@gmail.com --auto-attach
+sudo subscription-manager clean
+sudo yum repolist
 
 
 Install Ansible 
