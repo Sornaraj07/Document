@@ -1,3 +1,6 @@
+sudo subscription-manager register --username=sornaraj07@gmail.com --password=Sorna@07
+
+
 Install Ansible 
 ---------------
 
