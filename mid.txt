@@ -1,7 +1,6 @@
-primary - https://dev411142.service-now.com/navpage.do    -    user_name=admin & user_password=Disc@123
+primary sornaraj07@gmail.com - https://dev411142.service-now.com/navpage.do    -    user_name=admin & user_password=Disc@123
 
-Secondary  -  https://dev276320.service-now.com/login.do?  - -    user_name=admin & user_password=Sorna@07   
-https://dev276320.service-now.com/login.do?user_name=admin&sys_action=sysverb_login&user_password=Zc%24*jG0nk1OB
+Secondary msornaraj1@gmail.com -  https://dev438640.service-now.com  - -    user_name=admin & user_password=3Omru8Ul+PL$  
 
 MID server User : Vedha_MID_Server
 Pwd : }Q6wC>Rj
