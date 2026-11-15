@@ -33,7 +33,7 @@ Create or edit:
 C:\Program Files\Apache Software Foundation\Tomcat 10.1\bin\catalina.bat or notepad catalina.bat
 
 Add & Save the arguments  -->Set under JAVA_OPTS
-set "CATALINA_OPTS=%CATALINA_OPTS% -javaagent:C:\datadog\dd-java-agent.jar"
+set "CATALINA_OPTS=%CATALINA_OPTS% -javaagent:C:\datadog\dd-java-agent.jar"    -----> C:\datadog\dd-java-agent.jar file saved location
 set "CATALINA_OPTS=%CATALINA_OPTS% -Ddd.service=dd-training-web"
 set "CATALINA_OPTS=%CATALINA_OPTS% -Ddd.env=training"
 set "CATALINA_OPTS=%CATALINA_OPTS% -Ddd.version=1.0"
