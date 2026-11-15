@@ -51,33 +51,23 @@ Then restart Tomcat.
 
 >.\startup.bat  or catalina.bat start
 
->dir *.exe
 
 Verify Application status
 ----------------------------
+Task Manager --> Get Java application process ID 
+  or 
+>wmic process where "name='java.exe'" get ProcessId
+>jinfo.exe 1620 (or) jinfo.exe 1620 | findstr dd
+
+For Tomcat, dir *.exe is useful to check which executable files are available in the Tomcat installation directory.
+>dir *.exe  (or) dir tomcat*.exe
+
+
+
+
+
 cmd -> cd C:\Program Files\Java\jdk-27\bin
->dir *env*
->jinfo.exe 4436 (436 Java application process ID from task manager) or wmic process where "name='java.exe'" get ProcessId
-
-
-
-For Tomcat running as a Windows Service
----------------------------------------
-
-1.Open:
-C:\Program Files\Apache Software Foundation\Tomcat 10.1\bin\tomcat9w.exe (or tomcat10w.exe)
-
-2.Go to Java tab.
-
-3.Under Java Options, add:
-
--javaagent:C:\datadog\dd-java-agent.jar
--Ddd.service=dd-training-web
--Ddd.env=training
--Ddd.version=1.0.0
--Ddd.logs.injection=true
-
-4.Click Apply and restart the Tomcat service.
+>dir *env*  
 
 
 Datadog.yaml file:
@@ -103,6 +93,27 @@ tags:
   - "team:observability"
   - "os:windows"
   - "lab:datadog-14day"
+
+
+
+
+For Tomcat running as a Windows Service
+---------------------------------------
+
+1.Open:
+C:\Program Files\Apache Software Foundation\Tomcat 10.1\bin\tomcat9w.exe (or tomcat10w.exe)
+
+2.Go to Java tab.
+
+3.Under Java Options, add:
+
+-javaagent:C:\datadog\dd-java-agent.jar
+-Ddd.service=dd-training-web
+-Ddd.env=training
+-Ddd.version=1.0.0
+-Ddd.logs.injection=true
+
+4.Click Apply and restart the Tomcat service.
 
 
 
