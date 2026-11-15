@@ -82,7 +82,7 @@ C:\Program Files\Apache Software Foundation\Tomcat 10.1\bin\tomcat9w.exe (or tom
 
 Datadog.yaml file:
 ---------------------
-api_key: f5e2e2cd43f896632e0bf2c03b220d78
+api_key: f5e2e2cd43f896632e0bf2c03b220d78-s0rn@
 site: datadoghq.com
 
 apm_config:
