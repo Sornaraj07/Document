@@ -57,7 +57,7 @@ Verify Application status
 ----------------------------
 cmd -> cd C:\Program Files\Java\jdk-27\bin
 >dir *env*
->jinfo.exe 4436 (436 Java application process ID from task manager)
+>jinfo.exe 4436 (436 Java application process ID from task manager) or wmic process where "name='java.exe'" get ProcessId
 
 
 
