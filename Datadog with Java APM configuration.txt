@@ -62,7 +62,7 @@ Task Manager --> Get Java application process ID (1620)
 For Tomcat, dir *.exe is useful to check which executable files are available in the Tomcat installation directory.
 >dir *.exe  (or) dir tomcat*.exe
 
-
+--------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
 
