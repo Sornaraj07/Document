@@ -1,0 +1,111 @@
+Javapath setup in Windows:
+----------------------------
+
+CommandPromt :
+set JAVA_HOME=C:\Program Files\Java\jdk-27
+set PATH=%JAVA_HOME%\bin;%PATH%
+
+GUI :
+1.Find your Java installation path, for example: C:\Program Files\Java\jdk-27
+
+2.Open:
+Control Panel → System → Advanced system settings or (Win+R --> sysdm.cpl --> Advanced)
+
+3.Click Environment Variables
+Under System Variables, click New:
+Variable name: JAVA_HOME
+Variable value: C:\Program Files\Java\jdk-27
+
+4.Edit the Path variable Under System Variables and add:
+%JAVA_HOME%\bin
+
+5.Open a new Command Prompt and verify:
+BAT -- cmd>
+echo %JAVA_HOME%
+java -version
+javac -version
+
+
+For Tomcat using startup.bat
+-----------------------------
+Create or edit:
+
+C:\Program Files\Apache Software Foundation\Tomcat 10.1\bin\catalina.bat or notepad catalina.bat
+
+Add & Save the arguments  -->Set under JAVA_OPTS
+set "CATALINA_OPTS=%CATALINA_OPTS% -javaagent:C:\datadog\dd-java-agent.jar"
+set "CATALINA_OPTS=%CATALINA_OPTS% -Ddd.service=dd-training-web"
+set "CATALINA_OPTS=%CATALINA_OPTS% -Ddd.env=training"
+set "CATALINA_OPTS=%CATALINA_OPTS% -Ddd.version=1.0"
+set "CATALINA_OPTS=%CATALINA_OPTS% -Ddd.logs.injection=true"
+set "CATALINA_OPTS=%CATALINA_OPTS% -Ddd.trace.sample.rate=1"
+
+set "CATALINA_OPTS=%CATALINA_OPTS% -javaagent:C:\datadog\dd-java-agent.jar"
+set "CATALINA_OPTS=%CATALINA_OPTS% -Ddd.service=sample-web"
+set "CATALINA_OPTS=%CATALINA_OPTS% -Ddd.env=training"
+set "CATALINA_OPTS=%CATALINA_OPTS% -Ddd.version=1.0"
+set "CATALINA_OPTS=%CATALINA_OPTS% -Ddd.logs.injection=true"
+set "CATALINA_OPTS=%CATALINA_OPTS% -Ddd.trace.sample.rate=1"
+
+Then restart Tomcat.
+
+>.\startup.bat  or catalina.bat start
+
+>dir *.exe
+
+Verify Application status
+----------------------------
+cmd -> cd C:\Program Files\Java\jdk-27\bin
+>dir *env*
+>jinfo.exe 4436 (436 Java application process ID from task manager)
+
+
+
+For Tomcat running as a Windows Service
+---------------------------------------
+
+1.Open:
+C:\Program Files\Apache Software Foundation\Tomcat 10.1\bin\tomcat9w.exe (or tomcat10w.exe)
+
+2.Go to Java tab.
+
+3.Under Java Options, add:
+
+-javaagent:C:\datadog\dd-java-agent.jar
+-Ddd.service=dd-training-web
+-Ddd.env=training
+-Ddd.version=1.0.0
+-Ddd.logs.injection=true
+
+4.Click Apply and restart the Tomcat service.
+
+
+Datadog.yaml file:
+---------------------
+api_key: f5e2e2cd43f896632e0bf2c03b220d78
+site: datadoghq.com
+
+apm_config:
+  enabled: true
+
+logs_enabled: true
+
+process_config:
+  enabled: true
+  
+hostname: DataDog
+
+
+env: training
+tags:
+  - "environment:training"
+  - "application:dd-training"
+  - "team:observability"
+  - "os:windows"
+  - "lab:datadog-14day"
+
+
+
+
+
+
