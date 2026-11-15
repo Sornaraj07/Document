@@ -4,7 +4,7 @@ Javapath setup in Windows:
 CommandPromt :
 set JAVA_HOME=C:\Program Files\Java\jdk-27
 set PATH=%JAVA_HOME%\bin;%PATH%
-
+  (or)
 GUI :
 1.Find your Java installation path, for example: C:\Program Files\Java\jdk-27
 
@@ -19,7 +19,7 @@ Variable value: C:\Program Files\Java\jdk-27
 4.Edit the Path variable Under System Variables and add:
 %JAVA_HOME%\bin
 
-5.Open a new Command Prompt and verify:
+Open a new Command Prompt and verify:
 BAT -- cmd>
 echo %JAVA_HOME%
 java -version
@@ -47,7 +47,7 @@ set "CATALINA_OPTS=%CATALINA_OPTS% -Ddd.version=1.0"
 set "CATALINA_OPTS=%CATALINA_OPTS% -Ddd.logs.injection=true"
 set "CATALINA_OPTS=%CATALINA_OPTS% -Ddd.trace.sample.rate=1"
 
-Then restart Tomcat.
+Then restart Tomcat services.
 
 >.\startup.bat  or catalina.bat start
 
