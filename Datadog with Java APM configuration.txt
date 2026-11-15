@@ -54,7 +54,7 @@ Then restart Tomcat.
 
 Verify Application status
 ----------------------------
-Task Manager --> Get Java application process ID 
+Task Manager --> Get Java application process ID (1620)
   or 
 >wmic process where "name='java.exe'" get ProcessId
 >jinfo.exe 1620 (or) jinfo.exe 1620 | findstr dd
