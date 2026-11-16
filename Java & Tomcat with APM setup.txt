@@ -1,0 +1,174 @@
+# Datadog Agent, Java, and Apache Tomcat Installation & Configuration Guide (Windows)
+ Purpose
+This document describes the installation and configuration process for:
+- Datadog Agent
+- Java JDK
+- Apache Tomcat 10.1
+- Datadog APM integration for Java applications running on Tomcat
+- Java environment variable configuration on Windows
+---
+# 1. Install Datadog Agent
+1. Download the Datadog Agent for Windows from the Datadog portal.
+2. Run the installer with Administrator privileges.
+3. Provide the Datadog API Key during installation.
+4. Verify the agent service is running.
+ Verify Datadog Agent Status
+Open Command Prompt as Administrator:
+cmd
+sc query DatadogAgent
+Or:
+cmd
+services.msc
+Ensure **Datadog Agent** service status is **Running**.
+---
+# 2. Install Java JDK
+Install Java JDK (example version: JDK 27).
+Installation Path:
+C:\Program Files\Java\jdk-27
+---
+# 3. Configure JAVA_HOME in Windows
+ Method 1: Command Prompt (Temporary Session)
+Open Command Prompt:
+cmd
+set JAVA_HOME=C:\Program Files\Java\jdk-27
+set PATH=%JAVA_HOME%\bin;%PATH%
+ Verify
+cmd
+echo %JAVA_HOME%
+java -version
+javac -version
+---
+ Method 2: Windows GUI (Permanent Configuration)
+ Step 1: Identify Java Installation Path
+Example:
+C:\Program Files\Java\jdk-27
+ Step 2: Open System Properties
+Navigate to:
+Control Panel → System → Advanced System Settings
+or
+Win + R → sysdm.cpl → Advanced
+ Step 3: Open Environment Variables
+Select:
+Environment Variables
+ Step 4: Create JAVA_HOME Variable
+Under **System Variables**, click **New**.
+Variable Name: JAVA_HOME
+Variable Value: C:\Program Files\Java\jdk-27
+ Step 5: Update Path Variable
+Under **System Variables**, select **Path** and click **Edit**.
+Add: %JAVA_HOME%\bin
+ Step 6: Validate Configuration
+Open a new Command Prompt and run:
+cmd
+echo %JAVA_HOME%
+java -version
+javac -version
+
+Expected Result:
+- JAVA_HOME displays the JDK path.
+- Java version is displayed successfully.
+- Javac compiler version is displayed successfully.
+---
+# 4. Install Apache Tomcat 10.1
+Install Apache Tomcat 10.1.
+Example Installation Path:
+C:\Program Files\Apache Software Foundation\Tomcat 10.1
+After installation, verify the Tomcat service is available.
+---
+# 5. Configure Datadog APM for Tomcat Applications
+ Edit Catalina Configuration
+Open:
+C:\Program Files\Apache Software Foundation\Tomcat 10.1\bin\catalina.bat (or) notepad catalina.bat
+Add the following entries under the JAVA_OPTS/CATALINA_OPTS section.
+---
+ Application 1 – dd-training-web
+
+set "CATALINA_OPTS=%CATALINA_OPTS% -javaagent:C:\datadog\dd-java-agent.jar"
+set "CATALINA_OPTS=%CATALINA_OPTS% -Ddd.service=dd-training-web"
+set "CATALINA_OPTS=%CATALINA_OPTS% -Ddd.env=training"
+set "CATALINA_OPTS=%CATALINA_OPTS% -Ddd.version=1.0"
+set "CATALINA_OPTS=%CATALINA_OPTS% -Ddd.logs.injection=true"
+set "CATALINA_OPTS=%CATALINA_OPTS% -Ddd.trace.sample.rate=1"
+---
+ Application 2 – sample-web
+
+set "CATALINA_OPTS=%CATALINA_OPTS% -javaagent:C:\datadog\dd-java-agent.jar"
+set "CATALINA_OPTS=%CATALINA_OPTS% -Ddd.service=sample-web"
+set "CATALINA_OPTS=%CATALINA_OPTS% -Ddd.env=training"
+set "CATALINA_OPTS=%CATALINA_OPTS% -Ddd.version=1.0"
+set "CATALINA_OPTS=%CATALINA_OPTS% -Ddd.logs.injection=true"
+set "CATALINA_OPTS=%CATALINA_OPTS% -Ddd.trace.sample.rate=1"
+**Note:** When multiple applications run under the same Tomcat instance, Datadog typically reports a single service name. For true service separation, deploy each application in a separate Tomcat instance or configure service mapping appropriately.
+---
+# 6. Restart Tomcat
+After updating the configuration, restart Tomcat.
+Using Command Prompt:
+cmd
+cd "C:\Program Files\Apache Software Foundation\Tomcat 10.1\bin"
+startup.bat
+Or:
+catalina.bat start
+
+---
+# 7. 
+Verify Application status
+----------------------------
+Identify the Java Process ID (PID) from Task Manager.
+Task Manager -> Get Java application PID (example: 4436)
+ 
+Where:
+- 4436 = Java Application Process ID (PID)
+- PID can be obtained from Windows Task Manager → Details tab
+Successful execution confirms that the JVM is running and accessible.
+ 
+ or
+cmd
+wmic process where "name='java.exe'" get ProcessId
+
+cmd
+jinfo.exe 4436 (or) jinfo.exe 4436 | findstr dd
+
+Verify Application and JVM Status
+Navigate to the Java bin directory:
+cmd
+cd C:\Program Files\Java\jdk-27\bin
+List Java utilities:
+cmd
+dir *env*
+
+
+
+# Troubleshooting
+-------------------
+Java Not Found
+Verify:
+cmd
+echo %JAVA_HOME%
+java -version
+javac -version
+Check that:
+%JAVA_HOME%\bin
+exists in the system PATH.
+
+Tomcat Not Starting
+Verify:
+cmd
+startup.bat
+Review:
+logs\catalina*.log
+for startup errors.
+
+Datadog Agent Not Reporting
+Verify Agent status:
+cmd
+"C:\Program Files\Datadog\Datadog Agent\bin\agent.exe" status
+Restart Agent:
+cmd
+Restart-Service DatadogAgent
+ 
+APM Data Not Visible
+Verify:
+- `dd-java-agent.jar` exists in `C:\datadog`
+- `-javaagent` parameter is configured correctly
+- Tomcat has been restarted after configuration changes
+- Datadog Agent APM is enabled
